@@ -12,9 +12,16 @@ class ViewContainer extends Component {
           {this.props.children}
         </LinearGradient>
       )
+    }
+    if(this.props.topbar === "true") {
+      return (
+        <LinearGradient style={styles.topBar} colors={['#fdac2b', '#fe7b2a']}>
+          {this.props.children}
+        </LinearGradient>
+      )
     } else {
       return (
-        <View style={styles.viewContainer}>
+        <View style={{flex: 1,flexDirection: 'column',justifyContent: 'space-between',alignItems: 'stretch',}}>
           {this.props.children}
         </View>
       )
@@ -28,7 +35,15 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-  }
+  },
+  topBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 50,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
 })
 
 module.exports = ViewContainer

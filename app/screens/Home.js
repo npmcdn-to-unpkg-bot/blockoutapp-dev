@@ -4,8 +4,8 @@ import { Image, StyleSheet, Text, TouchableNativeFeedback, View } from 'react-na
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ViewContainer from '../components/ViewContainer';
-
-const menuButton = ( <Icon name="ellipsis-v" size={30} color="#ffffff" /> );
+import TopBar from '../components/TopBar';
+import BottomBar from '../components/BottomBar';
 
 class Home extends Component {
   constructor(props) {
@@ -18,20 +18,40 @@ class Home extends Component {
   render() {
     return (
       <ViewContainer>
-        <View style={styles.topBar}>
 
-          <Text>Home</Text>
-          <menuButton />
-        </View>
+          <TopBar>
+            <TouchableNativeFeedback
+              background={TouchableNativeFeedback.Ripple('red')}
+              delayPressIn={0}>
+              <View>
+                  <Icon name="chevron-left" size={25} color="#ffffff" style={styles.topBarButtons} />
+              </View>
+            </TouchableNativeFeedback>
+            <View>
+              <Text style={styles.topBarButtons}>Home</Text>
+            </View>
+            <TouchableNativeFeedback
+              background={TouchableNativeFeedback.Ripple('red')}
+              delayPressIn={0}>
+              <View>
+                  <Icon name="ellipsis-v" size={30} color="#ffffff" style={styles.topBarButtons} />
+              </View>
+            </TouchableNativeFeedback>
+          </TopBar>
+
 
 
         <TouchableNativeFeedback
           onPress={Actions.login}
-          background={TouchableNativeFeedback.SelectableBackground()}>
+          background={TouchableNativeFeedback.Ripple('red')}
+          delayPressIn={0}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Back to Login</Text>
           </View>
         </TouchableNativeFeedback>
+
+        <BottomBar />
+
       </ViewContainer>
     );
   }
@@ -39,9 +59,25 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  topBar: {
+  topBarButtons: {
+    width: 50,
+    height: 50,
+    textAlign: "center",
+    textAlignVertical: "center",
+    color: '#ffffff',
+  },
+
+  bottomBarInner: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  bottomBarButtons: {
     height: 50,
     backgroundColor: '#ff0000',
+    flex: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 
   logo: {
@@ -63,7 +99,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   button: {
-    backgroundColor: 'pink',
     borderWidth: 1,
     borderColor: '#ffffff',
     marginLeft: 40,
@@ -72,7 +107,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     margin: 10,
-    alignSelf: 'center',
+    textAlign: 'center',
+    textAlignVertical: 'center',
     color: '#ffffff',
   },
 });

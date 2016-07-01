@@ -45,7 +45,7 @@ class Login extends Component {
 
           <TouchableNativeFeedback
             onPress={Actions.home}
-            background={TouchableNativeFeedback.SelectableBackground()}>
+            background={TouchableNativeFeedback.Ripple('rgba(3, 155, 229, 0.3)')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Let's get started!</Text>
             </View>
@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
     marginRight: 40,
   },
   button: {
-    backgroundColor: 'pink',
     borderWidth: 1,
     borderColor: '#ffffff',
     marginLeft: 40,
