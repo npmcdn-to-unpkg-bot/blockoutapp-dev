@@ -22,9 +22,9 @@ class BlockOut extends Component {
     return (
       <Router>
         <Scene key="root" hideNavBar={true}>
-          <Scene key="login" component={Login} title="Login"
+          <Scene key="login" component={Login} title="Login" initial={true}
           direction="vertical" />
-          <Scene key="home" component={Home} title="Home" initial={true}
+          <Scene key="home" component={Home} title="Home"
           direction="horizontal" />
         </Scene>
       </Router>

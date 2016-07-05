@@ -3,13 +3,33 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableNativeFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ViewContainer from '../components/ViewContainer';
+import Firebase from 'firebase';
 
 class Login extends Component {
+  componentDidMount() {
+    var config = {
+      apiKey: "AIzaSyCwDtcip464eCOW9L5yTP7uPjqt0tXATOw",
+      authDomain: "blockoutmvp.firebaseapp.com",
+      databaseURL: "https://blockoutmvp.firebaseio.com",
+      storageBucket: "blockoutmvp.appspot.com",
+    };
+    // firebase.initializeApp(config);
+  }
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      email: '',
+      password: ''
     };
+  }
+
+  _createUser() {
+    var email = this.state.email;
+    var password = this.state.password;
+    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
   }
 
   render() {
@@ -23,28 +43,28 @@ class Login extends Component {
             Hi there!
           </Text>
           <TextInput style={styles.input}
-            ref="name"
+            ref="email"
             selectionColor="#ffffff"
             underlineColorAndroid="#ffffff"
             onFocus={this._onPressButton}
-            onChangeText={(name) => this.setState({name})}
-            value={this.state.name}
-            placeholder="What's your name?"
+            value={this.state.email}
+            placeholder="What's your email?"
             placeholderTextColor="#ffffff"
+            onChange={ (e) => {this.setState({email: e.nativeEvent.email})} }
           />
           <TextInput style={styles.input}
-            ref="postal"
+            ref="password"
             selectionColor="#ffffff"
             underlineColorAndroid="#ffffff"
             onFocus={this._onPressButton}
-            onChangeText={(postal) => this.setState({postal})}
             value={this.state.postal}
-            placeholder="What's your postal code?"
+            placeholder="What's your password?"
             placeholderTextColor="#ffffff"
+            onChange={ (e) => {this.setState({password: e.nativeEvent.password})} }
           />
 
           <TouchableNativeFeedback
-            onPress={Actions.home}
+            onPress={this._createUser.bind(this)}
             background={TouchableNativeFeedback.Ripple('rgba(3, 155, 229, 0.3)')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Let's get started!</Text>

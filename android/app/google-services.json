@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "993716032504",
+    "firebase_url": "https://blockoutmvp.firebaseio.com",
+    "project_id": "blockoutmvp",
+    "storage_bucket": "blockoutmvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993716032504:android:7c4f404541013af3",
+        "android_client_info": {
+          "package_name": "com.blockout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993716032504-cv9a7r6eo5iu39mpn0afqj446m8c5897.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blockout",
+            "certificate_hash": "C242AB294876754C6A1985F0C49C12582243437A"
+          }
+        },
+        {
+          "client_id": "993716032504-3jisohj8r04u2qqlqkfmekdspbueau70.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2wNQ1Tg6IJA-99bZBmLNWIv9KIGaPO0E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993716032504-3jisohj8r04u2qqlqkfmekdspbueau70.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
