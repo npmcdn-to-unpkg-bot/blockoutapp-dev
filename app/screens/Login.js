@@ -3,24 +3,29 @@ import React, { Component } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableNativeFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ViewContainer from '../components/ViewContainer';
-import Firebase from 'firebase';
+import { firebase, auth } from '../services/firebase';
 
 class Login extends Component {
-  componentDidMount() {
-    var config = {
-      apiKey: "AIzaSyCwDtcip464eCOW9L5yTP7uPjqt0tXATOw",
-      authDomain: "blockoutmvp.firebaseapp.com",
-      databaseURL: "https://blockoutmvp.firebaseio.com",
-      storageBucket: "blockoutmvp.appspot.com",
-    };
-    // firebase.initializeApp(config);
-  }
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: ''
     };
+    // const firebaseRef = new Firebase("https://blockoutmvp.firebaseio.com");
+
+    const config = {
+      apiKey: "AIzaSyCwDtcip464eCOW9L5yTP7uPjqt0tXATOw",
+      authDomain: "blockoutmvp.firebaseapp.com",
+      databaseURL: "https://blockoutmvp.firebaseio.com"
+    };
+    firebase.initializeApp(config);
+    const rootRef =  firebase.database().ref();
+    firebaseRef.set({
+      title: 'Hello World!',
+      author: 'Simon'
+    })
+
   }
 
   _createUser() {
@@ -57,7 +62,7 @@ class Login extends Component {
             selectionColor="#ffffff"
             underlineColorAndroid="#ffffff"
             onFocus={this._onPressButton}
-            value={this.state.postal}
+            value={this.state.password}
             placeholder="What's your password?"
             placeholderTextColor="#ffffff"
             onChange={ (e) => {this.setState({password: e.nativeEvent.password})} }
