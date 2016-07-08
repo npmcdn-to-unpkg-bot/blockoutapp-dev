@@ -1,40 +1,29 @@
 'use strict'
 import React, { Component } from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableNativeFeedback, View } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, ToastAndroid, TouchableNativeFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ViewContainer from '../components/ViewContainer';
-import { firebase, auth } from '../services/firebase';
+
+const firebase = require('../services/firebase');
+const auth = require('../services/firebase/auth');
 
 class Login extends Component {
+  componentDidMount() {
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+      name = user.displayName;
+      this.setState({displayName: name})
+    } else {
+      this.setState({displayName: "noUser"})
+    }
+  }
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      email: "",
+      password: "",
+      displayName: ""
     };
-    // const firebaseRef = new Firebase("https://blockoutmvp.firebaseio.com");
-
-    const config = {
-      apiKey: "AIzaSyCwDtcip464eCOW9L5yTP7uPjqt0tXATOw",
-      authDomain: "blockoutmvp.firebaseapp.com",
-      databaseURL: "https://blockoutmvp.firebaseio.com"
-    };
-    firebase.initializeApp(config);
-    const rootRef =  firebase.database().ref();
-    firebaseRef.set({
-      title: 'Hello World!',
-      author: 'Simon'
-    })
-
-  }
-
-  _createUser() {
-    var email = this.state.email;
-    var password = this.state.password;
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
   }
 
   render() {
@@ -46,35 +35,39 @@ class Login extends Component {
           </Text>
           <Text style={styles.instructions}>
             Hi there!
+            {this.state.displayName}
           </Text>
           <TextInput style={styles.input}
             ref="email"
             selectionColor="#ffffff"
             underlineColorAndroid="#ffffff"
-            onFocus={this._onPressButton}
-            value={this.state.email}
             placeholder="What's your email?"
             placeholderTextColor="#ffffff"
-            onChange={ (e) => {this.setState({email: e.nativeEvent.email})} }
+            onChangeText={ (email) => {this.setState({email})} }
           />
           <TextInput style={styles.input}
             ref="password"
             selectionColor="#ffffff"
             underlineColorAndroid="#ffffff"
-            onFocus={this._onPressButton}
-            value={this.state.password}
             placeholder="What's your password?"
             placeholderTextColor="#ffffff"
-            onChange={ (e) => {this.setState({password: e.nativeEvent.password})} }
+            onChangeText={ (password) => {this.setState({password})} }
           />
 
           <TouchableNativeFeedback
-            onPress={this._createUser.bind(this)}
-            background={TouchableNativeFeedback.Ripple('rgba(3, 155, 229, 0.3)')}>
+            onPress={Actions.home}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Let's get started!</Text>
+              <Text style={styles.buttonText}>Sign In</Text>
             </View>
           </TouchableNativeFeedback>
+
+          <TouchableNativeFeedback
+            onPress={Actions.signup}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>New User?</Text>
+            </View>
+          </TouchableNativeFeedback>
+
       </ViewContainer>
     );
   }
@@ -111,7 +104,7 @@ const styles = StyleSheet.create({
     borderColor: '#ffffff',
     marginLeft: 40,
     marginRight: 40,
-    marginTop: 20,
+    marginTop: 10,
   },
   buttonText: {
     margin: 10,
