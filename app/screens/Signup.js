@@ -8,8 +8,6 @@ const firebase = require('../services/firebase');
 const auth = require('../services/firebase/auth');
 
 class Signup extends Component {
-  componentDidMount() {
-  }
   constructor(props) {
     super(props);
     this.state = {
@@ -48,37 +46,42 @@ class Signup extends Component {
   render() {
     return (
       <ViewContainer gradient="true">
-        <TextInput style={styles.input}
-          ref="email"
-          selectionColor="#ffffff"
-          underlineColorAndroid="#ffffff"
-          placeholder="What's your email?"
-          placeholderTextColor="#ffffff"
-          onChangeText={ (email) => {this.setState({email})} }
-        />
-        <TextInput style={styles.input}
-          ref="password"
-          selectionColor="#ffffff"
-          underlineColorAndroid="#ffffff"
-          placeholder="What's your password?"
-          placeholderTextColor="#ffffff"
-          onChangeText={ (password) => {this.setState({password})} }
-        />
+        <View>
+          <Text style={styles.welcome}>
+            Just a few steps away from reaching your neighbours...
+          </Text>
+          <TextInput style={styles.input}
+            ref="email"
+            selectionColor="#ffffff"
+            underlineColorAndroid="#ffffff"
+            placeholder="What's your email?"
+            placeholderTextColor="#ffffff"
+            onChangeText={ (email) => {this.setState({email})} }
+          />
+          <TextInput style={styles.input}
+            ref="password"
+            selectionColor="#ffffff"
+            underlineColorAndroid="#ffffff"
+            placeholder="Set a password"
+            placeholderTextColor="#ffffff"
+            onChangeText={ (password) => {this.setState({password})} }
+          />
 
-        <TouchableNativeFeedback
-          onPress={this._createUser.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Next</Text>
-          </View>
-        </TouchableNativeFeedback>
+          <TouchableNativeFeedback
+            onPress={this._createUser.bind(this)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Next</Text>
+            </View>
+          </TouchableNativeFeedback>
 
-        <TouchableNativeFeedback
-          onPress={this._deleteUser.bind(this)}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Delete Me!</Text>
-          </View>
-        </TouchableNativeFeedback>
-
+          {/* To test signup and allow you to easily delete user */}
+          <TouchableNativeFeedback
+            onPress={this._deleteUser.bind(this)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Delete Me!</Text>
+            </View>
+          </TouchableNativeFeedback>
+        </View>
       </ViewContainer>
     );
   }
@@ -86,17 +89,14 @@ class Signup extends Component {
 }
 
 const styles = StyleSheet.create({
-  logo :{
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-  },
   welcome: {
-    fontSize: 36,
+    fontSize: 24,
     fontWeight: '600',
     textAlign: 'center',
     marginTop: 0,
     marginBottom: 10,
+    marginLeft: 40,
+    marginRight: 40,
     color: '#ffffff',
   },
   instructions: {

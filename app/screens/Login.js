@@ -1,41 +1,38 @@
 'use strict'
-import React, { Component } from 'react';
-import { Image, StyleSheet, Text, TextInput, ToastAndroid, TouchableNativeFeedback, View } from 'react-native';
+import React, { Component, Platform } from 'react';
+import { Image, ScrollView, StyleSheet, Text, TextInput, ToastAndroid, TouchableNativeFeedback, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ViewContainer from '../components/ViewContainer';
+import FBLoginView from '../components/FBLoginView';
 
 const firebase = require('../services/firebase');
 const auth = require('../services/firebase/auth');
 
+const { FBLogin, FBLoginManager } = require('react-native-facebook-login');
+const LoginBehavior = {
+  'ios': FBLoginManager.LoginBehaviors.Browser,
+  'android': FBLoginManager.LoginBehaviors.Native
+}
+
 class Login extends Component {
-  componentDidMount() {
-    var user = firebase.auth().currentUser;
-    if (user != null) {
-      name = user.displayName;
-      this.setState({displayName: name})
-    } else {
-      this.setState({displayName: "noUser"})
-    }
-  }
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
-      displayName: ""
     };
   }
 
   render() {
     return (
       <ViewContainer gradient="true">
-        <Image style={styles.logo} source={require('../../assets/img/logoWhite.png')} />
+        <ScrollView style={{flex: 1,}}>
+          <Image style={styles.logo} source={require('../../assets/img/logoWhite.png')} />
           <Text style={styles.welcome}>
             BlockOut
           </Text>
           <Text style={styles.instructions}>
             Hi there!
-            {this.state.displayName}
           </Text>
           <TextInput style={styles.input}
             ref="email"
@@ -54,12 +51,35 @@ class Login extends Component {
             onChangeText={ (password) => {this.setState({password})} }
           />
 
+          {/* This button should authenticate via email then send them to home page on success */}
           <TouchableNativeFeedback
-            onPress={Actions.home}>
+            onPress={function() {
+              Actions.home();
+            }
+            }>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Sign In</Text>
             </View>
           </TouchableNativeFeedback>
+
+          <FBLogin
+            buttonView={<FBLoginView />}
+            loginBehavior={LoginBehavior[Platform]}
+            permissions={["email","user_friends"]}
+            onLogin={function(e){
+              console.log(e);
+              Actions.home();
+              ToastAndroid.show("Logged In", ToastAndroid.LONG);
+            }}
+            onLoginFound={function(e){console.log(e)}}
+            onLoginNotFound={function(e){console.log(e)}}
+            onLogout={function(e){
+                console.log(e);
+                ToastAndroid.show("Logged Out", ToastAndroid.LONG);
+              }}
+            onCancel={function(e){console.log(e)}}
+            onPermissionsMissing={function(e){console.log(e)}}
+          />
 
           <TouchableNativeFeedback
             onPress={Actions.signup}>
@@ -68,6 +88,7 @@ class Login extends Component {
             </View>
           </TouchableNativeFeedback>
 
+        </ScrollView>
       </ViewContainer>
     );
   }
@@ -76,8 +97,8 @@ class Login extends Component {
 
 const styles = StyleSheet.create({
   logo :{
-    width: 200,
-    height: 200,
+    width: 175,
+    height: 175,
     alignSelf: 'center',
   },
   welcome: {

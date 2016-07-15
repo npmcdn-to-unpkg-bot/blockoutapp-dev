@@ -21,7 +21,7 @@ class ViewContainer extends Component {
       )
     } else {
       return (
-        <View style={{flex: 1,flexDirection: 'column',justifyContent: 'space-between',alignItems: 'stretch',}}>
+        <View style={styles.plainView}>
           {this.props.children}
         </View>
       )
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   viewContainer: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     alignItems: 'stretch',
   },
   topBar: {
@@ -44,6 +44,13 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  plainView: {
+    backgroundColor: '#e1e1e1',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
+  }
 })
 
 module.exports = ViewContainer

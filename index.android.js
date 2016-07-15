@@ -6,6 +6,8 @@ import Login from './app/screens/Login';
 import Signup from './app/screens/Signup';
 import SetupProfile from './app/screens/SetupProfile';
 import Home from './app/screens/Home';
+import Chat from './app/screens/Chat';
+import ChatList from './app/screens/ChatList';
 
 const firebase = require('./app/services/firebase');
 const auth = require('./app/services/firebase/auth');
@@ -35,13 +37,15 @@ class BlockOut extends Component {
     return (
       <Router>
         <Scene key="root" hideNavBar={true}>
-          <Scene key="login" component={Login} title="Login" initial={true}
+          <Scene key="login" component={Login} title="Login"
           direction="vertical" />
           <Scene key="signup" component={Signup} title="Signup"
           direction="horizontal" />
           <Scene key="setupProfile" component={SetupProfile} title="Setup Profile"
           direction="horizontal" />
           <Scene key="home" component={Home} title="Home"
+          direction="horizontal" />
+          <Scene key="chat" component={Chat} title="Chat" initial={true}
           direction="horizontal" />
         </Scene>
       </Router>

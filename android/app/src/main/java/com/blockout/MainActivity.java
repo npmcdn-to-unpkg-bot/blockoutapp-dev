@@ -10,6 +10,9 @@ import java.util.List;
 
 import com.BV.LinearGradient.LinearGradientPackage;
 
+import com.magus.fblogin.FacebookLoginPackage;
+
+
 public class MainActivity extends ReactActivity {
 
     /**
@@ -39,7 +42,8 @@ public class MainActivity extends ReactActivity {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
             new VectorIconsPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+            new FacebookLoginPackage()
         );
     }
 }
